@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf8"?>
+  <CellCounter_Marker_File>
+    <Marker_Data>
+      <Marker_Type>
+        <Type>19</Type>
+        <Marker>
+          <MarkerX>416</MarkerX>
+          <MarkerY>713</MarkerY>
+          <MarkerZ>75</MarkerZ>
+        </Marker>
+        <Marker>
+          <MarkerX>381</MarkerX>
+          <MarkerY>692</MarkerY>
+          <MarkerZ>75</MarkerZ>
+        </Marker>
+        <Marker>
+          <MarkerX>401</MarkerX>
+          <MarkerY>676</MarkerY>
+          <MarkerZ>75</MarkerZ>
+        </Marker>
+      </Marker_Type>
+    </Marker_Data>
+  </CellCounter_Marker_File>
