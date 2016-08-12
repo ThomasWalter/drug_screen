@@ -84,7 +84,12 @@ the corresponding classifier (I removed the image data from version
 control): ``cecog_classifiers/classifier_2016_08_10_only_observed_classes``. 
 
 This is in any case a working solution. The kidney class can be either
-removed or joined with polylobed or interphase. 
+removed or joined with polylobed or interphase, or maintained in the
+drug-screen data and not in the mitocheck data set. As a matter of
+fact, we could argue that this kind of situation is typical when
+comparing screens, and that the EMD allows us to compare profiles with
+different classes, as long as we can define a cost matrix between the
+classes.  
 
 In order to build a joined classifier, I made a script that joins two
 arff files: ``src/join_classifiers.py``
@@ -104,5 +109,5 @@ There are also still some technical issues related to the compilation
 on the cluster: the system has been updated, and at the moment
 cellcognition does not run because of several dependencies. I
 re-compiled qt and PyQt. At the moment I am blocked by lxml (for which
-i will need the assistance of IT). 
+I need the assistance of IT). 
 
