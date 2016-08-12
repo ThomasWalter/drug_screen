@@ -91,11 +91,11 @@ comparing screens, and that the EMD allows us to compare profiles with
 different classes, as long as we can define a cost matrix between the
 classes.  
 
-In order to build a joined classifier, I made a script that joins two
-arff files: ``src/join_classifiers.py``
-
-This seems to work, but at the moment, I cannot train the classifier
-in CellCognition without picking. I need to check this still. 
+In order to build a joined classifier, I wrote a script that joins two
+arff files: ``src/join_classifiers.py``. The script is now running,
+and a joint classifier has been trained:
+``cecog_classifiers/res_join``. The training phase for this classifier
+is relatively long due to the large number of samples.  
 
 Finally, we have to decide, what to do with the kidney-shape class. My
 feeling is that if we find a new class in the mitocheck data and if
@@ -110,4 +110,19 @@ on the cluster: the system has been updated, and at the moment
 cellcognition does not run because of several dependencies. I
 re-compiled qt and PyQt. At the moment I am blocked by lxml (for which
 I need the assistance of IT). 
+
+The following issues have been settled:
+
+- Installation of lxml and its dependencies (done by IT). 
+- Installation of PyQt4. 
+- Installation of PyQt5. This was necessary, as the new version of
+  CellCognition depends on PyQt5. The Qt-dependency has been installed
+  in ``/share/apps/user_apps/QT5``. Probably, I should have installed
+  PyQt4 also to such a dedicated folder, but now it is in
+  ``/cbio/donnees/nvaroquaux/.local/``. Importantly, the paths need to
+  point to the QT5 installation if a new version is to be used. 
+- Update of CellCognition to the current version. 
+
+12/08/2016: Where is the data?
+------------------------------
 

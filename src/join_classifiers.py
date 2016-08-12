@@ -226,7 +226,7 @@ class ClassifierMerger(object):
         # export class_definition
         filename = os.path.join(self.output_path, 'class_definition.txt')
         fp = open(filename, 'w')
-        temp = zip(all_classes, [dctClassLabels[x] for x in all_classes], [dctHexColors[x] for x in all_classes])
+        temp = zip([dctClassLabels[x] for x in all_classes], all_classes, [dctHexColors[x] for x in all_classes])
         temp.sort(key=op.itemgetter(1))
         for x in temp:
             fp.write('\t'.join([str(y) for y in x]) + '\n')
