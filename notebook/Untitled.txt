@@ -1,0 +1,6 @@
+python rename_files.py -i /share/data40T/aschoenauer/drug_screen/data_offset_corrected/ -a b_cy3 -b Cy3
+
+qsub -t 1-202 /share/data40T/Thomas/drug_screen/shell_scripts/drug_screen_new.sh
+
+python Cecog_script_generation_drug_screen.py -b ../pbs_drug_screen_features_classif_August2016.py
+
