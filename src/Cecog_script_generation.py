@@ -30,18 +30,16 @@ class BatchProcessor(object):
         plates = self.oBatchSettings.plates
         if plates is None:
            plates = filter(lambda x: os.path.isdir(os.path.join(self.oBatchSettings.baseInDir, x)), os.listdir(self.oBatchSettings.baseInDir))
-        
+
+        plates.sort()        
         for plate in plates:
             wells=filter(lambda x: os.path.isdir(os.path.join(self.oBatchSettings.baseInDir,plate, x)), 
 			 os.listdir(os.path.join(self.oBatchSettings.baseInDir, plate)))
-            #if wells[0].rfind('--') > 0:
-            #   r.extend([(plate, "%05i_01" % int(x.split('--')[0]) ) for x in wells])
-            #else:
-            #   r.extend([(plate, x) for x in wells])
-
+            wells.sort()
+            r.extend([(plate, "%05i_01" % int(x.split('--')[0]) ) for x in wells])
             # LT0003_02--ex2005_11_11--sp2005_03_16--tt173--c3___00170_01
-            for k in [1,2]:
-                r.extend([(plate, "{:>05}_{:>02}".format(int(well[1:]),k)) for well in wells])
+            #for k in [1,2]:
+            #    r.extend([(plate, "{:>05}_{:>02}".format(int(well[1:]),k)) for well in wells])
             
         return r
 
@@ -140,7 +138,6 @@ class BatchProcessor(object):
 #         return
 
     def exportPBSJobArray(self, lstExperiments):
-        lstExperiments.sort()
         jobCount = 0
 #        filename_settings = self.oBatchSettings.settingsFilename
 #         mod_filename = os.path.join(os.path.dirname(filename_settings),
@@ -156,8 +153,6 @@ class BatchProcessor(object):
         #print 'number of jobs : %i' % nb_jobs
         # get the list of plates from the tuple list [(plate, pos), (plate, pos), ...]
         lstPlates = list(set([x[0] for x in lstExperiments]))
-        lstPlates.sort()
-
         dctPlateFolder = self.getPlateDirectories(lstPlates)
 
         # the folders are made at this level in oder to avoid conflicts between parallel jobs.
