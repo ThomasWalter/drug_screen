@@ -123,6 +123,63 @@ The following issues have been settled:
   point to the QT5 installation if a new version is to be used. 
 - Update of CellCognition to the current version. 
 
-12/08/2016: Where is the data?
-------------------------------
+13/08/2016: Where is the data and everything?
+---------------------------------------------
+
+The original drug data can be found here: 
+``/share/data40T/aschoenauer/drug_screen/data_offset_corrected``
+As mentioned earlier, this data is offset-corrected and renamed. 
+
+I finally managed to start everything on the cluster. 
+For this, I have removed the PyQt4 installation. I noticed, that a
+cecog-installation depending on PyQt4 exists inside the site-packages
+(installed by Xiwei), which cannot be removed by me, as I do not have
+the permissions. So, it is important to set the PYTHONPATH
+properly. This has been modified in all sh-scripts (see below). 
+
+- Classification of drug data with the new classifier (without any
+  mitocheck annotation). 
+
+  - result folder:
+    ``/share/data40T/aschoenauer/drug_screen/results_August_2016/separated_classifier`` 
+  - command to generate pbs-scripts: ``python
+    Cecog_script_generation_drug_screen.py -b
+    pbs_drug_screen_features_classif_August2016.py`` 
+  - command to submit the jobs on the cluster: 
+    ``qsub -t 1-808 -tc 200
+    /cbio/donnees/twalter/src/drug_screen/scripts/drug_screen_new.sh``   
+  - Computation time: 5h (with 160 jobs in parallel)
+
+- Classification of drug data with the combined classifier. 
+
+  - result folder:
+    ``/share/data40T/aschoenauer/drug_screen/results_August_2016/joint_classifier`` 
+  - command to generate pbs-scripts: ``python
+    Cecog_script_generation_drug_screen.py -b
+    pbs_drug_screen_features_classif_August2016_joint_classifier.py`` 
+  - command to submit the jobs on the cluster: ``qsub -t 1-808
+    /cbio/donnees/twalter/src/drug_screen/scripts/joint_cl/drugs_joint_cl.sh`` 
+  - Computation time: 5h (with 160 jobs in parallel)
+
+- Classification of the mitocheck data with the combined classifier. 
+
+  - I could not work on the feature data directly: working with the
+    existing ch5-files is faster, but I then would erase the old
+    classification results. Consequently, I needed to re-segment. Not
+    storing the features also results in a smaller data set. But it
+    takes longer. 
+  - result folder:
+    ``/share/data40T/aschoenauer/drug_screen/results_August_2016/mito_joint_classifier``
+  - command to generate pbs-scripts: 
+    ``python Cecog_script_generation.py -b pbs_mitocheck_joint_classifier.py``
+  - command to submit the jobs on the cluster: 
+    ``qsub —tc 40 t 1-25232
+    /cbio/donnees/twalter/src/drug_screen/scripts/mito_joint/mitojoint.sh``
+    (yes, that's quite a number of jobs ... and tc = 40 is also not
+    optimal, but if I do not do this, Nelle will kill me in a most
+    unpleasent way ... but perhaps we can alter this next week.)
+
+
+
+
 

@@ -417,10 +417,11 @@ fact, we could argue that this kind of situation is typical when
 comparing screens, and that the EMD allows us to compare profiles with
 different classes, as long as we can define a cost matrix between the
 classes.</p>
-<p>In order to build a joined classifier, I made a script that joins two
-arff files: <tt class="docutils literal">src/join_classifiers.py</tt></p>
-<p>This seems to work, but at the moment, I cannot train the classifier
-in CellCognition without picking. I need to check this still.</p>
+<p>In order to build a joined classifier, I wrote a script that joins two
+arff files: <tt class="docutils literal">src/join_classifiers.py</tt>. The script is now running,
+and a joint classifier has been trained:
+<tt class="docutils literal">cecog_classifiers/res_join</tt>. The training phase for this classifier
+is relatively long due to the large number of samples.</p>
 <p>Finally, we have to decide, what to do with the kidney-shape class. My
 feeling is that if we find a new class in the mitocheck data and if
 this class allows us to find the molecular targets of this drug, this
@@ -433,6 +434,74 @@ on the cluster: the system has been updated, and at the moment
 cellcognition does not run because of several dependencies. I
 re-compiled qt and PyQt. At the moment I am blocked by lxml (for which
 I need the assistance of IT).</p>
+<p>The following issues have been settled:</p>
+<ul class="simple">
+<li>Installation of lxml and its dependencies (done by IT).</li>
+<li>Installation of PyQt4.</li>
+<li>Installation of PyQt5. This was necessary, as the new version of
+CellCognition depends on PyQt5. The Qt-dependency has been installed
+in <tt class="docutils literal">/share/apps/user_apps/QT5</tt>. Probably, I should have installed
+PyQt4 also to such a dedicated folder, but now it is in
+<tt class="docutils literal"><span class="pre">/cbio/donnees/nvaroquaux/.local/</span></tt>. Importantly, the paths need to
+point to the QT5 installation if a new version is to be used.</li>
+<li>Update of CellCognition to the current version.</li>
+</ul>
+</div>
+<div class="section" id="where-is-the-data-and-everything">
+<h1>13/08/2016: Where is the data and everything?</h1>
+<p>The original drug data can be found here:
+<tt class="docutils literal">/share/data40T/aschoenauer/drug_screen/data_offset_corrected</tt>
+As mentioned earlier, this data is offset-corrected and renamed.</p>
+<p>I finally managed to start everything on the cluster.
+For this, I have removed the PyQt4 installation. I noticed, that a
+cecog-installation depending on PyQt4 exists inside the site-packages
+(installed by Xiwei), which cannot be removed by me, as I do not have
+the permissions. So, it is important to set the PYTHONPATH
+properly. This has been modified in all sh-scripts (see below).</p>
+<ul class="simple">
+<li>Classification of drug data with the new classifier (without any
+mitocheck annotation).<ul>
+<li>result folder:
+<tt class="docutils literal">/share/data40T/aschoenauer/drug_screen/results_August_2016/separated_classifier</tt></li>
+<li>command to generate pbs-scripts: <tt class="docutils literal">python
+Cecog_script_generation_drug_screen.py <span class="pre">-b</span>
+pbs_drug_screen_features_classif_August2016.py</tt></li>
+<li>command to submit the jobs on the cluster:
+<tt class="docutils literal">qsub <span class="pre">-t</span> <span class="pre">1-808</span> <span class="pre">-tc</span> 200
+/cbio/donnees/twalter/src/drug_screen/scripts/drug_screen_new.sh</tt></li>
+<li>Computation time: 5h (with 160 jobs in parallel)</li>
+</ul>
+</li>
+<li>Classification of drug data with the combined classifier.<ul>
+<li>result folder:
+<tt class="docutils literal">/share/data40T/aschoenauer/drug_screen/results_August_2016/joint_classifier</tt></li>
+<li>command to generate pbs-scripts: <tt class="docutils literal">python
+Cecog_script_generation_drug_screen.py <span class="pre">-b</span>
+pbs_drug_screen_features_classif_August2016_joint_classifier.py</tt></li>
+<li>command to submit the jobs on the cluster: <tt class="docutils literal">qsub <span class="pre">-t</span> <span class="pre">1-808</span>
+/cbio/donnees/twalter/src/drug_screen/scripts/joint_cl/drugs_joint_cl.sh</tt></li>
+<li>Computation time: 5h (with 160 jobs in parallel)</li>
+</ul>
+</li>
+<li>Classification of the mitocheck data with the combined classifier.<ul>
+<li>I could not work on the feature data directly: working with the
+existing ch5-files is faster, but I then would erase the old
+classification results. Consequently, I needed to re-segment. Not
+storing the features also results in a smaller data set. But it
+takes longer.</li>
+<li>result folder:
+<tt class="docutils literal">/share/data40T/aschoenauer/drug_screen/results_August_2016/mito_joint_classifier</tt></li>
+<li>command to generate pbs-scripts:
+<tt class="docutils literal">python Cecog_script_generation.py <span class="pre">-b</span> pbs_mitocheck_joint_classifier.py</tt></li>
+<li>command to submit the jobs on the cluster:
+<tt class="docutils literal">qsub —tc 40 t <span class="pre">1-25232</span>
+/cbio/donnees/twalter/src/drug_screen/scripts/mito_joint/mitojoint.sh</tt>
+(yes, that's quite a number of jobs ... and tc = 40 is also not
+optimal, but if I do not do this, Nelle will kill me in a most
+unpleasent way ... but perhaps we can alter this next week.)</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </body>
