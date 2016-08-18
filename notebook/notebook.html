@@ -503,6 +503,32 @@ unpleasent way ... but perhaps we can alter this next week.)</li>
 </li>
 </ul>
 </div>
+<div class="section" id="Alice1">
+<h1>18/08/2016: Starting again</h1>
+I've started to look into the data, the problems as we had discussed before the holidays and my code yesterday and today. Tough :).
+<br><br>
+As discussed on the 20th of August, we first would like to know whether the control phenotypic profiles in Mitocheck and the drug screen are comparable. 
+As a side-check, it could be interesting to see if the control proliferation rates are similar too.
+<br><br>
+Let us consider the proliferation rates (easier because 1 nb/well). If the variances are equal, we can do a 2-sample t-test, otherwise a Welch's test. This
+ test does not exist in scipy.stats but it exists in R. This seems reasonable. We could also look at a Kolmogorov-Smirnov test. The t-test checks if the means
+ are identical, assuming the distributions are Gaussian whereas the KS test checks if the two samples are drawn from the same distribution. It seems to be
+ the same goal as the Wilcoxon rank-sum test, this is interesting... Let's say we look at the three p-values and see.
+<br><br>
+Now when we come to phenotypic profiles. Let us assume that we consider aggregated phenotypic profiles with time (ie a vector of dimension the number of classes 
+for each well). Still, this question is still the subject of papers (how to compute statistical tests between multivariate distributions - in fact this is 
+precisely the reason why we needed to dvp a new approach when dealing with Motiw). Possibilities:<br>
+<ul>
+<li> Compute distances between DS controls on the one hand, between Mito controls on the other hand, and evaluate how the distances of DS controls to Mito controls 
+compare to both latter distributions. Idea: transportation distance. Other: Hellinger, L2</li>
+<li> In a similar approach, compute statistical tests (eg KS) between say 1/3 and 1/3 of DS controls, combine p-values using Fisher formula. Repeat a certain 
+number of times => get a distribution of Fisher statistics. Do the same for Mitocheck controls. Finally, look at the Fisher statistics of comparisons between 
+DS and Mito controls => are they consistent with the two others?</li>
+</ul>
+  
+
+
+
 </div>
 </body>
 </html>
