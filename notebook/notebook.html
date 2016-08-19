@@ -526,8 +526,65 @@ number of times => get a distribution of Fisher statistics. Do the same for Mito
 DS and Mito controls => are they consistent with the two others?</li>
 </ul>
   
+<div class="section" id="Alice2">
+<h1>19/08/2016</h1>
+<p>Done the tests for comparing proliferation: significantly different according to KS and Wilcoxon rank-sum tests, ie control proliferation values from the DS experiments do
+ not come from the same distribution as those from the Mitocheck experiments. This is at least something to know, although it does not mean that the rest is bound to fail. </p>
+ <img src="control_proliferation_comparison.png" width="50%">
+ 
+ <p>If I look at the percentages of interphase at the beginning of experiments or the end, using the separated classifier for DS experiments, it is not really better, for example at t=48h:<br>
+In [97]: ks_2samp(ds_interphasee, mito_interphasee[:len(ds)])<br>
+Out[97]: Ks_2sampResult(statistic=0.40404040404040403, pvalue=1.0206950980453439e-07)<br>
 
+In [98]: ks_2samp(mito_interphasee[-len(ds):], mito_interphasee[:len(ds)])<br>
+Out[98]: Ks_2sampResult(statistic=0.090909090909090912, pvalue=0.78901374540865998)<br><br>
+or t=0:<br>
+n [77]: ks_2samp(ds_interphase, mito_interphase[:len(ds)])<br>
+Out[77]: Ks_2sampResult(statistic=0.31313131313131315, pvalue=8.3404989489022121e-05)<br>
 
+In [78]: ks_2samp(mito_interphase[-len(ds):], mito_interphase[:len(ds)])<br>
+Out[78]: Ks_2sampResult(statistic=0.15151515151515149, pvalue=0.18845568511626737)<br>
+
+It seems better using the joint classifier (from p-values 10^-7 to 10^-4), though still significantly different. The Wilcoxon rank-sum test seems lest stringent.
+<br>I choose to look at the results of using the Mitocheck classifier on the DS experiments (indeed we hadn't done any tests). Restricting myself to aggregated interphases, 
+it is not statistically significantly different from using the joint classifier. But the distribution is not the same than that of Mitocheck control experiments. 
+<br>
+<img src="control_aggregated_interphase_comparison.png"  width="50%">
+<br>
+If we have less interphases in the DS controls and the proliferation there is higher, I would say that the difference is therefore that there are more mitotic phenotypes in DS controls. 
+If I look at the phenotypes there should be more anaphases, metaphases and prometaphases. This is correct, but does not explain all the differences: there is approximately twice as many 
+mitotic phases in the DS than in Mitocheck but it is not enough to compensate for the difference. I look at Kidney, apoptosis: this seems like an endless quest which can be summarized by
+ fact that the classifications were realized with a different classifier. Now. The idea is to look at Mitocheck controls which have already been computed using the joint classifier: do we still 
+get that?
+ </p>
+<p>Indeed we do: let us investigate how each phenotypic class is represented in controls from DS and Mitocheck experiments. Here are the mean percentages over the whole movie (ie, 
+aggregated data) for each phenotypic class using the joint classifier, respectively for DS and Mitocheck experiments:<br>
+Interphase 0.819165420184 0.722449957794<br>
+Artefact 0.03173882151 0.0426910468146<br>
+Prometaphase 0.0131205009216 0.00536043444377<br>
+Grape 0.00495739132674 0.000731442059825<br>
+Metaphase 0.009350975884 0.00690633688488<br>
+Apoptosis 0.00540172419196 0.0120680089453<br>
+ADCCM 6.98284091886e-05 0.000809520079249<br>
+Folded 0.000676337182389 0.00431211612777<br>
+Focus 0.00151579060649 0.03098032268<br>
+Large 0.00794003542958 0.00962848565439<br>
+Binucleated 0.00692017149368 0.0891532008123<br>
+SmallIrregular 0.00128074001242 0.014103716939<br>
+Kidney 0.0413329361264 0.00155639172893<br>
+Polylobed 0.0204667768705 0.0188442742433<br>
+Hole 0.000292390851477 0.000973719038307<br>
+Anaphase 0.0234266377098 0.0179796640158<br>
+MetaphaseAlignment 0.00310661056638 0.00301602570327<br>
+Elongated 0.00923691072363 0.0184353360356<br>
+So on the one hand there are more interphase and kidney nuclei in the DS controls, on the other hand this is compensated by more out of focus, binucleated and small iregular 
+nuclei in the Mitocheck controls. We do have more mitotic nuclei in the DS controls than in the Mitocheck controls but this is not the main effect. Therefore, it does not seem 
+that the Mitocheck and DS experiments are directly comparable...</p>
+
+In conclusion two consequences:<br>
+<ul>
+<li>We can still work on the distances between drug screen experiments themselves.</li>
+<li>If we want to compare Mitocheck and DS experiments, we need to find a way to take the basal differences between the controls, into account.</li>
 
 </div>
 </body>
