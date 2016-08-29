@@ -657,6 +657,24 @@ of a given phenotype in the experiment.
 wells with extra kidney nuclei in the rest of Mitocheck. </p>
 
 <p>We can still use the transportation distance if we would like to look for a clustering of drug screen conditions.</p>
+
+
+<div class="section" id="Alice5">
+<h1>29/08/2016</h1>
+I want to compare raw aggregated phenotypic profiles with corresponding Mann-Whitney U statistics.
+<br>
+* Raw phenotypic profiles: 921 DS experiments, among which 99 controls. 497 Mitocheck controls randomly picked (old Mitocheck classifier).
+<br>
+* U statistics: 331 DS values, among which 27 controls. 2,614 Mitocheck experiments among which 251 controls (old Mitocheck classifier).
+<br>
+I look at the 2D projection done by t-SNE ([van der Maaten et Hinton, 2008]) and it is much more satisfactory using Mann-Whitney U statistics as 
+can be seen in the two pictures below.
+<br>First using only aggregated phenotypic profiles<br>
+<img src="aggregated_normalized_comparison_tSNE.png"  width="50%">
+<br>Second using Mann-Whitney U statistics<br>
+<img src="aggregated_normalized_comparison_Ustatistics_tSNE.png"  width="50%">
+
+
 </div>
 </body>
 </html>
