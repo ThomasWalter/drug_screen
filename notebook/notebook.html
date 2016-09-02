@@ -674,7 +674,26 @@ can be seen in the two pictures below.
 <br>Second using Mann-Whitney U statistics<br>
 <img src="aggregated_normalized_comparison_Ustatistics_tSNE.png"  width="50%">
 
-
+<div class="section" id="Alice6">
+<h1>02/09/2016</h1>
+i. Adding controls and computations for LTValid* and LT060* plates.<br>
+ii. Launching computations storing p-values rather than Mann-Whitney Us to study how the use of sigmoid(p-values) compares to that of Us.
+<br>
+iii. Re-doing the above plots, <br>
+----->with the indication of hit wells: see above. We do find hit dots where we expect them to be (not with the other DS wells)<br>
+----->with the indication of plates. Strong plate effect as expected when using raw aggregated phenotypic profiles<br>
+<img src="aggregated_normalized_comparison_tSNE_plateIndication.png"  width="50%"><br>
+----->without normalizing with respect to control wells. We see that it is necessary, although the effect is less strong for Mann-Whitney Us<br>
+<br>Using only aggregated phenotypic profiles<br>
+<img src="aggregated_comparison_tSNE.png"  width="50%">
+<br>Second using Mann-Whitney U statistics<br>
+<img src="aggregated_NONnormalized_comparison_Ustatistics_tSNE.png"  width="50%">
+<br>
+To do next: 
+<br>
+- see how p-values sigmoided compare with the statistics<br>
+- start looking at distances between experiments<br>
+- start doing domain adaptation NN<br>
 </div>
 </body>
 </html>
