@@ -709,6 +709,17 @@ Output data: the p-values are stored as such and not sigmoided.<br>
 Doing hierarchical clustering with or without using Mann-Whitney Us which are related to interphases does not change much (the interphase U does not 
 smash the others since we are looking at Mann Whitney Us and not raw values, I was mistaken). What is left is to look at the individual clusterings (one 
 phenotype at a time) and what the p-values give.
+
+<div class="section" id="Alice7">
+<h1>8/9/2016</h1>
+It does seem that using sigmoided p-values makes it possible to cover a greater range of values.<br>
+1. Boxplot, Mann-Whitney Us<br>
+<img src="range_Ustatistics_boxplot.png"  width="50%">
+<br>
+2. Boxplot, Mann-Whitney p-values + sigmoid transformation (lambda = 1)<br>
+<img src="range_sigmpvals_boxplot.png"  width="50%"><br>
+3. Boxplot, Mann-Whitney p-values + sigmoid transformation (lambda = 10)<br>
+<img src="range_sigmpvals_lamb10_boxplot.png"  width="50%"><br>
 </div>
 </body>
 </html>
