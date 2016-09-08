@@ -720,6 +720,11 @@ It does seem that using sigmoided p-values makes it possible to cover a greater 
 <img src="range_sigmpvals_boxplot.png"  width="50%"><br>
 3. Boxplot, Mann-Whitney p-values + sigmoid transformation (lambda = 10)<br>
 <img src="range_sigmpvals_lamb10_boxplot.png"  width="50%"><br>
+The 2D projection also looks OK in terms of how the control and non-hit DS experiments are spread out with respect to Mitocheck controls.<br>
+<img src="aggregated_normalized_comparison_sigm10pvals_tSNE.png"  width="50%"><br>
+Turns out lambda = 10 does not make it possible to get good clustering results.	Lambda = 1 is much better in terms of distance heterogeneity.
+<br>
+As for the clustering results, they seem as little interesting as those obtained with Mann-Whitney statistics. We can discuss that tomorrow.
 </div>
 </body>
 </html>
